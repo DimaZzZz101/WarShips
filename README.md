@@ -26,7 +26,9 @@ brew install libncurses5-dev libncursesw5-dev
 
 ## Build:
 cmake -H. -B_build
+
 cmake --build _build
+
 _build/demo
 
 ## Run:
