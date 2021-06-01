@@ -20,7 +20,8 @@
 7. Корабли нельзя ставить рядом (между ними должна быть минимум одна клетка).
 
 ## Install:
-// for mac package manager is brew, for linux is (sudo) apt-get
+// for mac package manager is brew, for linux is (sudo) apt-get install libncurses5-dev libncursesw5-dev
+
 brew install libncurses5-dev libncursesw5-dev
 
 ## Build:
