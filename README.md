@@ -20,10 +20,18 @@
 7. Корабли нельзя ставить рядом (между ними должна быть минимум одна клетка).
 
 ## Install:
+// for mac package manager is brew, for linux is (sudo) apt-get
+brew install libncurses5-dev libncursesw5-dev
 
 ## Build:
+cmake -H. -B_build
+cmake --build _build
+_build/demo
 
 ## Run:
+/game_directory/cmake-build-debug/
+
+./demo
 
 ## Элементы управления:
 
