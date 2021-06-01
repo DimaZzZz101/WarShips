@@ -1,0 +1,8 @@
+/Users/mrrobot/Documents/GitHub/WarShips/_build/CMakeFiles/install/local.dir
+/Users/mrrobot/Documents/GitHub/WarShips/_build/CMakeFiles/install/strip.dir
+/Users/mrrobot/Documents/GitHub/WarShips/_build/CMakeFiles/install.dir
+/Users/mrrobot/Documents/GitHub/WarShips/_build/CMakeFiles/rebuild_cache.dir
+/Users/mrrobot/Documents/GitHub/WarShips/_build/CMakeFiles/edit_cache.dir
+/Users/mrrobot/Documents/GitHub/WarShips/_build/CMakeFiles/demo.dir
+/Users/mrrobot/Documents/GitHub/WarShips/_build/CMakeFiles/list_install_components.dir
+/Users/mrrobot/Documents/GitHub/WarShips/_build/CMakeFiles/WarShips.dir
