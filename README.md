@@ -51,9 +51,9 @@
 2. ИИ против игрока
 
 
-![GIF](https://raw.githubusercontent.com/DimaZzZ101/master/img/Menu.gif)
+![GIF](https://github.com/DimaZzZz101/WarShips/blob/master/img/Menu.gif)
 
-![GIF](https://raw.githubusercontent.com/DimaZzZ101/master/img/AIvsAI-game-demo.gif)
+![GIF](https://github.com/DimaZzZz101/WarShips/blob/master/img/AIvsAI-game-demo.gif)
 
 ![alt text](img/rules.png)
 
