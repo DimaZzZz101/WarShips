@@ -4,6 +4,7 @@
 
 PlayerField::PlayerField(std::array<std::array<char, 10>, 10> player_field) :
         field_(newwin(height_, width_, x_, y_)), player_field_(player_field) {
+    // Изначально поле игрока заполняется тильдами (морем)
     for (size_t i = 0; i < 10; ++i) {
         for (size_t j = 0; j < 10; ++j) {
             if (player_field_[i][j] == elements_of_interface::empty) {
@@ -15,6 +16,7 @@ PlayerField::PlayerField(std::array<std::array<char, 10>, 10> player_field) :
 
 PlayerField::PlayerField(std::array<std::array<char, 10>, 10> player_field, int x, int y) :
     x_(x), y_(y), field_(newwin(height_, width_, x_, y_)), player_field_(player_field) {
+    // Изначально поле игрока заполняется тильдами (морем)
     for (size_t i = 0; i < 10; ++i) {
         for (size_t j = 0; j < 10; ++j) {
             if (player_field_[i][j] == elements_of_interface::empty) {

@@ -12,14 +12,29 @@ class Menu {
 public:
     Menu(WINDOW *win);
     ~Menu();
+
     void SetOpts(int numOpts, ... );
+
     void AddStrings(int numOpts, ...);
+
     int RunMenu();
 private:
-    char **optPtr, **argPtr;
-    bool optPtrUsed, argPtrUsed;
-    int numArgs, numOpts, option, h, w;
+    char **optPtr;
+    char **argPtr;
+
+    bool optPtrUsed;
+    bool argPtrUsed;
+
+    int numArgs
+    int numOpts;
+
+    int option;
+
+    int h;
+    int w;
+
     bool addOpts;
+
     WINDOW *win;
 };
 #endif //WARSHIPS_MENU_HPP

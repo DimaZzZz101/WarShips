@@ -3,15 +3,18 @@
 #include "../include/AI.hpp"
 
 AI::AI() {
+    // Поле целей изначально заполняется нулями
     for (auto &row: cells_) {
         std::fill(row.begin(), row.end(), 0);
     }
 
+    // Игровое поле заполняется "морем"
     for (auto &row: ai_field_) {
         std::fill(row.begin(), row.end(), elements_of_interface::sea);
     }
 }
 
+// ИИ располагает корабли случайным образом
 void AI::ShipsLocation() {
     for (size_t i = 0; i < 10; ++i) {
         int _x = rand() % 10;

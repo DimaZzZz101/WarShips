@@ -1,6 +1,6 @@
 // Copyright 2021 DimaZzZz101
 
-#include "AIField.hpp"
+#include "../include/AIField.hpp"
 
 AIField::AIField(std::array<std::array<char, 10>, 10> &ai_field) : field_(newwin(height_, width_, x_, y_)),
                                                                    private_ai_field_(ai_field) {
@@ -100,6 +100,7 @@ void AIField::Interface() {
                 }
                 break;
         }
+
         Display();
     }
 }
@@ -116,7 +117,6 @@ bool AIField::CanPlace() const {
     return false;
 }
 
-// private methods
 void AIField::MoveUp() {
     if (curr_x_ != 0) --curr_x_;
 }
@@ -140,7 +140,6 @@ bool AIField::MoveAbility(int x, int y) {
 bool AIField::PlayerMove(int x, int y) {
     if (private_ai_field_[x][y] == elements_of_interface::ship) {
         public_ai_field_[x][y] = elements_of_interface::damage;
-        private_ai_field_[x][y] = elements_of_interface::damage;
         private_ai_field_[x][y] = elements_of_interface::damage;
         return true;
     }

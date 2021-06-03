@@ -67,20 +67,19 @@ void Game() {
     refresh();
 
     int choice = menu.RunMenu();
-
+    // Выбор опции игры
     switch (choice) {
         case 0:
-            AIvsAI();
+            AIvsAI(); // ИИ против ИИ
             break;
         case 1:
-            AIvsHuman();
-            refresh();
+            AIvsHuman(); // ИИ против игрока
             break;
         case 2:
-            Help();
+            Help(); // Показ правил и элементов игры + управление
             break;
         case 3:
-            Exit();
+            Exit(); // Выход из игры
             break;
     }
 
@@ -89,54 +88,60 @@ void Game() {
 }
 
 void AIvsAI() {
-    clear();
+    clear(); // Очистка консольного окна
 
-    srand(time(nullptr));
+    srand(time(nullptr)); // Устанавливается отсчет ГПСЧ
 
+    // Выполнение проверки на корректность открытия окна
     if (!initscr()) {
         fprintf(stderr, "Error initialising ncurses.\n");
         exit(1);
     }
 
-    initscr();
+    initscr(); // Инициализация окна (начало оконного блока)
 
-    AI ai_player1;
-    AI ai_player2;
+    AI ai_player1; // Игрок ИИ-1
+    AI ai_player2; // Игрок ИИ-2
 
-    ai_player1.ShipsLocation();
-    ai_player2.ShipsLocation();
+    ai_player1.ShipsLocation(); // ИИ-1 расставляет корабли на своем поле
+    ai_player2.ShipsLocation(); // ИИ-2 расставляет корабли на своем поле
 
-    PlayerField Pl_win1(ai_player1.GetAiField());
-    PlayerField Pl_win2(ai_player2.GetAiField(), 3, 50);
+    PlayerField Pl_win1(ai_player1.GetAiField()); // Создание поля ИИ-1
+    PlayerField Pl_win2(ai_player2.GetAiField(), 3, 50); // Создание поля ИИ-2
 
-    Pl_win1.Display();
-    Pl_win2.Display();
+    Pl_win1.Display(); // Вывод на экран поля первого игрока (левое поле)
+    Pl_win2.Display(); // Вывод на экран поля второго игрока (правое поле)
 
+    // Процесс игры
+    // Первым ходит ИИ-1
     while (Pl_win1.CanPlace() && Pl_win2.CanPlace()) {
         while (true) {
-            std::pair<size_t, size_t> point = ai_player1.Shot(); // получаем коорд выстрела ии
+            std::pair<size_t, size_t> point = ai_player1.Shot(); // ИИ-1 производит выстрел
 
-            usleep(100000); // ии думает 1 сек
+            usleep(100000); // Задержка в 1 секунду, чтобы показать процесс игры
 
-            Pl_win2.Move(ai_player1.GetCells(), point.first, point.second); // отображение хода компьютера
+            Pl_win2.Move(ai_player1.GetCells(), point.first, point.second); // Отображение хода ИИ-1 на поле ИИ-2
 
-            if (!Pl_win2.Damage(point.first, point.second)) { // если ии не попал, то все сначала
+            // Если ИИ-1 не попал, то ходит ИИ-2
+            if (!Pl_win2.Damage(point.first, point.second)) {
                 break;
             }
         }
 
+        // Аналогичные действия для ИИ-2
         while (true) {
-            std::pair<size_t, size_t> point = ai_player2.Shot(); // получаем коорд выстрела ии
+            std::pair<size_t, size_t> point = ai_player2.Shot();
 
-            usleep(100000); // ии думает 1 сек
+            usleep(100000);
 
-            Pl_win1.Move(ai_player2.GetCells(), point.first, point.second); // отображение хода компьютера
+            Pl_win1.Move(ai_player2.GetCells(), point.first, point.second);
 
-            if (!Pl_win1.Damage(point.first, point.second)) { // если ии не попал, то все сначала
+            if (!Pl_win1.Damage(point.first, point.second)) {
                 break;
             }
         }
 
+        // Проверка, кто победил
         if (!Pl_win2.CanPlace()) {
             int value = 0;
             GameOver1(value);
@@ -146,51 +151,58 @@ void AIvsAI() {
         }
     }
 
-    endwin();
+    endwin(); // Конец оконного блока
 }
 
 void AIvsHuman() {
-    clear();
+    clear(); // Очистка консольного окна
 
-    srand(time(nullptr));
+    srand(time(nullptr)); // Устанавливается отсчет ГПСЧ
 
+    // Выполнение проверки на корректность открытия окна
     if (!initscr()) {
         fprintf(stderr, "Error initialising ncurses.\n");
         exit(1);
     }
 
-    initscr();
-    noecho(); // чтобы не выводились символы при нажатии
-    keypad(stdscr, true); // подключение спец-символов
+    initscr(); // Инициализация окна (начало оконного блока)
 
-    PlacingShips human_player;
-    AI ai_player;
+    noecho(); // Отключение вывода вводимых с клавиатуры команд
+    keypad(stdscr, true); // Подключение спец-символов
 
+    PlacingShips human_player; // Игрок-1 (человек)
+    AI ai_player; // Игрок ИИ
+
+    // Перед игрой человек заполняет свое поле сам
     if (human_player.Location()) {
-        ai_player.ShipsLocation(); // заполнение поля ии (сам себе)
+        ai_player.ShipsLocation(); // ИИ заполняет свое поле
 
-        PlayerField human_win(human_player.GetField()); // перенос с поля w1 -> w2
-        AIField ai_win(ai_player.GetAiField()); // переносим поле (сгенерирванное ии) на поле ии
+        PlayerField human_win(human_player.GetField()); // Создание поля игрока
+        AIField ai_win(ai_player.GetAiField()); // Создание поля ИИ
 
-        human_win.Display(); // показываем оба поля
-        ai_win.Display();
+        human_win.Display(); // Вывод поля игрока на экран
+        ai_win.Display(); // Вывод поля ИИ на экран
 
-        do { // пока есть живые корабли продолжается игра
-            ai_win.Interface(); // ход игрока (пока не промажет)
+        // Пока есть живые корабли продолжается игра
+        do {
+            ai_win.Interface(); // Ход игрока (пока не промажет)
 
+            // Действия ИИ полностью аналогичны действиям в опции ИИ против ИИ
             while (true) {
-                std::pair<size_t, size_t> point = ai_player.Shot(); // получаем коорд выстрела ии
+                std::pair<size_t, size_t> point = ai_player.Shot();
 
-                usleep(1000000); // ии думает 1 сек
+                usleep(1000000);
 
-                human_win.Move(ai_player.GetCells(), point.first, point.second); // отображение хода компьютера
+                human_win.Move(ai_player.GetCells(), point.first, point.second);
 
-                if (!human_win.Damage(point.first, point.second)) { // если ии не попал, то все сначала
+                if (!human_win.Damage(point.first, point.second)) {
                     break;
                 }
             }
+
         } while (human_win.CanPlace() && ai_win.CanPlace());
 
+        // Определение победителя
         if (!human_win.CanPlace()) {
             int value = 0;
             GameOver2(value);
@@ -200,10 +212,11 @@ void AIvsHuman() {
         }
     }
 
-    endwin(); // когда цикл завершит работу - игра закончится
+    endwin(); // Конец оконного блока
 
 }
 
+// Справка по игре
 void Help() {
     clear();
 
@@ -256,6 +269,7 @@ void Help() {
 
 void Exit() {}
 
+// Конец игры для режима ИИ против ИИ
 void GameOver1(int value) {
     if (value == 0) {
         clear();
@@ -301,7 +315,6 @@ void GameOver1(int value) {
         clear();
 
         Game();
-
     } else if (value == 1) {
         clear();
 
@@ -349,6 +362,7 @@ void GameOver1(int value) {
     }
 }
 
+// Конец игры для режима игрок против ИИ
 void GameOver2(int value) {
     if (value == 0) {
         clear();

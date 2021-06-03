@@ -1,6 +1,6 @@
 // Copyright 2021 DimaZzZz101
 
-#include "PlacingShips.hpp"
+#include "../include/PlacingShips.hpp"
 
 PlacingShips::PlacingShips() : interface(newwin(height_, width_, window_y, window_x)) {
     for (auto &row: field_) {
@@ -76,11 +76,9 @@ bool PlacingShips::Location() {
                     ++p;
                 }
                 break;
-
             case 114:
                 pos = !pos;
                 break;
-
             default:
                 break;
         }
