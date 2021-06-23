@@ -25,7 +25,7 @@ private:
     bool optPtrUsed;
     bool argPtrUsed;
 
-    int numArgs
+    int numArgs;
     int numOpts;
 
     int option;
